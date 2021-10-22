@@ -1,12 +1,11 @@
 package org.thoughtworks.workshop;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 public class ChaseTarget {
     Batsman batsman = new Batsman();
-    Score score = new Score();
+    RandomScoreGenerator randomScoreGenerator = new RandomScoreGenerator();
     Bowler bowler = new Bowler();
 
     public boolean isBatsmanTargetAchieved(int targetScore,int sumOfScores){
@@ -18,11 +17,11 @@ public class ChaseTarget {
 
     public String displayWinningResults(int targetScore,int over,String batsmanType){
         for (int i=0; i< over; i++){
-            System.out.println(score.setScoreForEachBall(batsmanType).toString());
+            System.out.println(randomScoreGenerator.setScoreForEachBall(batsmanType).toString());
             System.out.println(batsman.toString());
-            batsman.setScores(Arrays.asList(score.setScoreForEachBall(batsmanType)));
+            batsman.setScores(Arrays.asList(randomScoreGenerator.setScoreForEachBall(batsmanType)));
             batsman.setTarget(targetScore);
-            bowler.setScores(Arrays.asList(score.setScoreForEachBall()));
+            bowler.setScores(Arrays.asList(randomScoreGenerator.setScoreForEachBall()));
 
             int sumOfBatsManScore = Arrays.stream(batsman.getScores().get(i)).sum();
             if( isBatsmanAndBowlerScoresSame(batsman.getScores().get(i),bowler.getScores().get(i)) &&

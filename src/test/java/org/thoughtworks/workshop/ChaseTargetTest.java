@@ -13,7 +13,7 @@ import static org.mockito.Mockito.doReturn;
 @ExtendWith(MockitoExtension.class)
 public class ChaseTargetTest {
     @Mock
-    Score mockScore;
+    RandomScoreGenerator mockRandomScoreGenerator;
 
     @InjectMocks
     ChaseTarget chaseTarget = new ChaseTarget();
@@ -54,8 +54,8 @@ public class ChaseTargetTest {
     public void testBatsManWon(){
         int[] batsman = {4,7,0,1,5,8};
         int[] bowler = {1,2,3,4,5,6};
-        doReturn(batsman).when(mockScore).setScoreForEachBall(anyString());
-        doReturn(bowler).when(mockScore).setScoreForEachBall();
+        doReturn(batsman).when(mockRandomScoreGenerator).setScoreForEachBall(anyString());
+        doReturn(bowler).when(mockRandomScoreGenerator).setScoreForEachBall();
         String actual = chaseTarget.displayWinningResults(6,1,BatsmanHittingType.NORMAL_BATSMAN.toString());
         Assertions.assertEquals("Batsman has won",actual);
     }
@@ -64,8 +64,8 @@ public class ChaseTargetTest {
     public void testBowlerWon(){
         int[] batsman = {4,7,0,1,5,8};
         int[] bowler = {1,2,3,4,8,6};
-        doReturn(batsman).when(mockScore).setScoreForEachBall(anyString());
-        doReturn(bowler).when(mockScore).setScoreForEachBall();
+        doReturn(batsman).when(mockRandomScoreGenerator).setScoreForEachBall(anyString());
+        doReturn(bowler).when(mockRandomScoreGenerator).setScoreForEachBall();
         String actual = chaseTarget.displayWinningResults(6,1,BatsmanHittingType.NORMAL_BATSMAN.toString());
         Assertions.assertEquals("Bowler has won",actual);
     }

@@ -17,23 +17,23 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ScoreTest {
+public class RandomScoreGeneratorTest {
     @InjectMocks
-    Score score = new Score();
+    RandomScoreGenerator randomScoreGenerator = new RandomScoreGenerator();
     @Mock
     Random random;
 
     @Test
     public void testScoreForEachBallReturnRandom(){
         when(random.nextInt(anyInt())).thenReturn(1);
-        int [] actual = score.setScoreForEachBall();
+        int [] actual = randomScoreGenerator.setScoreForEachBall();
         Assertions.assertArrayEquals(new int[]{1,1,1,1,1,1},actual);
     }
 
     @Test
     public void testScoreForEachBallReturnRandom_when_normalBatsmanType(){
         when(random.nextInt(anyInt())).thenReturn(1);
-        int [] actual = score.setScoreForEachBall(BatsmanHittingType.NORMAL_BATSMAN.toString());
+        int [] actual = randomScoreGenerator.setScoreForEachBall(BatsmanHittingType.NORMAL_BATSMAN.toString());
         Assertions.assertArrayEquals(new int[]{1,1,1,1,1,1},actual);
     }
 
@@ -45,7 +45,7 @@ public class ScoreTest {
                 .thenReturn(2)
                 .thenReturn(1)
                 .thenReturn(2);
-        int [] actual = score.setScoreForEachBall(BatsmanHittingType.DEFENSIVE.toString());
+        int [] actual = randomScoreGenerator.setScoreForEachBall(BatsmanHittingType.DEFENSIVE.toString());
         Assertions.assertArrayEquals(new int[]{1,1,3,2,1,2},actual);
     }
 
@@ -57,7 +57,7 @@ public class ScoreTest {
                 .thenReturn(6)
                 .thenReturn(0)
                 .thenReturn(1);
-        int [] actual = score.setScoreForEachBall(BatsmanHittingType.HITTER.toString());
+        int [] actual = randomScoreGenerator.setScoreForEachBall(BatsmanHittingType.HITTER.toString());
         Assertions.assertArrayEquals(new int[]{4,6,0,6,0,1},actual);
 
 
@@ -66,7 +66,7 @@ public class ScoreTest {
     @Test
     public void testRandomScoreGenerationForHitterBatsmanType(){
         List<Integer> scoreList = new ArrayList<Integer>(Arrays.asList(new Integer[]{0, 4, 6}));
-        int actual = score.getRandomNumberForHitterBatsman();
+        int actual = randomScoreGenerator.getRandomNumberForHitterBatsman();
         Assertions.assertEquals(true,scoreList.contains(actual));
     }
 
